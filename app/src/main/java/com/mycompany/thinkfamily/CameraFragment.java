@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.ImageButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -56,37 +58,51 @@ public class CameraFragment extends android.support.v4.app.Fragment implements C
         super();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        isStarted = true;
-        if (isVisible && isStarted){
-            if (mBitmapToSave == null) {
-                // This activity has no UI of its own. Just start the camera.
-                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-                        REQUEST_CODE_CAPTURE_IMAGE);
-            }
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        isStarted = true;
+//        if (isVisible && isStarted){
+//            if (mBitmapToSave == null) {
+//                // This activity has no UI of its own. Just start the camera.
+//                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+//                        REQUEST_CODE_CAPTURE_IMAGE);
+//            }
+//        }
+//    }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser){
-        super.setUserVisibleHint(isVisibleToUser);
-        isVisible = isVisibleToUser;
-        if (isVisible && isStarted){
-            if (mBitmapToSave == null) {
-                // This activity has no UI of its own. Just start the camera.
-                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-                        REQUEST_CODE_CAPTURE_IMAGE);
-            }
-        }
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser){
+//        super.setUserVisibleHint(isVisibleToUser);
+//        isVisible = isVisibleToUser;
+//        if (isVisible && isStarted){
+//            if (mBitmapToSave == null) {
+//                // This activity has no UI of its own. Just start the camera.
+//                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+//                        REQUEST_CODE_CAPTURE_IMAGE);
+//            }
+//        }
+//    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_camera, container, false);
+        Log.i(TAG, "Analytics fragment created");
+        isStarted = true;
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        View view = inflater.inflate(R.layout.fragment_launch, container, false);
+        ImageButton capture = (ImageButton) view.findViewById(R.id.imageButton);
+        capture.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+                    REQUEST_CODE_CAPTURE_IMAGE);
+            }
+        });
+        return view;
     }
 
     /**
@@ -183,17 +199,20 @@ public class CameraFragment extends android.support.v4.app.Fragment implements C
                 if (resultCode == Activity.RESULT_OK) {
                     // Store the image data as a bitmap for writing later.
                     mBitmapToSave = (Bitmap) data.getExtras().get("data");
+                    saveFileToDrive();
                 }
                 break;
             case REQUEST_CODE_CREATOR:
-                Log.i(TAG, "RequestCode - Creatot");
+                Log.i(TAG, "RequestCode - Creator");
                 // Called after a file is saved to Drive.
                 if (resultCode == Activity.RESULT_OK) {
                     Log.i(TAG, "Image successfully saved.");
                     mBitmapToSave = null;
-                    // Just start the camera again for another photo.
-                    startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-                            REQUEST_CODE_CAPTURE_IMAGE);
+                    if (isStarted) {
+                        // Just start the camera again for another photo.
+                        startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+                                REQUEST_CODE_CAPTURE_IMAGE);
+                    }
                 }
                 break;
         }
@@ -228,9 +247,9 @@ public class CameraFragment extends android.support.v4.app.Fragment implements C
 //                    REQUEST_CODE_CAPTURE_IMAGE);
 //            return;
 //        }
-        if(isStarted && isVisible){
-            saveFileToDrive();
-        }
+//        if(isStarted && isVisible){
+//            saveFileToDrive();
+//        }
     }
 
     @Override

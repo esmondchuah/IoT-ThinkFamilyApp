@@ -1,8 +1,10 @@
 package com.mycompany.thinkfamily;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -12,10 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -45,25 +51,30 @@ public class SuggestionsFragment extends Fragment {
 
     private void initializeData(){
         suggestion = new ArrayList<>();
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", R.drawable.dintaifung));
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", R.drawable.mahjong));
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", R.drawable.chinatown));
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", R.drawable.teachat));
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", R.drawable.taichi));
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", R.drawable.cooking));
+        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Dinner with Mom", "Din Tai Fung", R.drawable.dintaifung));
+        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Mahjong Session", "Home", R.drawable.mahjong));
+        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Shopping with Mom", "Chinatown", R.drawable.chinatown));
+        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Yam Cha", "Home", R.drawable.teachat));
+        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Tai Chi Session", "Insert location", R.drawable.taichi));
+        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Cooking with Mom", "Home", R.drawable.cooking));
     }
 }
 
 class Suggestion {
     String description1;
     String description2;
+    String calendarTitle;
+    String location;
     int photoId;
 
-    Suggestion(String description1, String description2, int photoId) {
+    Suggestion(String description1, String description2, String calendarTitle, String location, int photoId) {
         this.description1 = description1;
         this.description2 = description2;
+        this.calendarTitle = calendarTitle;
+        this.location = location;
         this.photoId = photoId;
     }
+
 }
 
 class RVAdapter extends RecyclerView.Adapter<RVAdapter.SuggestionViewHolder>{
@@ -88,9 +99,23 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.SuggestionViewHolder>{
 
     @Override
     public void onBindViewHolder(SuggestionViewHolder suggestionViewHolder, int i) {
+        final int buffer = i;
         suggestionViewHolder.description1.setText(suggestion.get(i).description1);
         suggestionViewHolder.description2.setText(suggestion.get(i).description2);
         suggestionViewHolder.suggestionPhoto.setImageResource(suggestion.get(i).photoId);
+        suggestionViewHolder.suggestionButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(Intent.ACTION_INSERT)
+                        .setData(CalendarContract.Events.CONTENT_URI)
+                        .putExtra(CalendarContract.Events.TITLE, suggestion.get(buffer).calendarTitle)
+//                        .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
+                        .putExtra(CalendarContract.Events.EVENT_LOCATION, suggestion.get(buffer).location)
+                        .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
+//                        .putExtra(Intent.EXTRA_EMAIL, "rowan@example.com,trevor@example.com");
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -103,6 +128,7 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.SuggestionViewHolder>{
         TextView description1;
         TextView description2;
         ImageView suggestionPhoto;
+        ImageButton suggestionButton;
 
         SuggestionViewHolder(View itemView) {
             super(itemView);
@@ -110,6 +136,7 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.SuggestionViewHolder>{
             description1 = (TextView)itemView.findViewById(R.id.description1);
             description2 = (TextView)itemView.findViewById(R.id.description2);
             suggestionPhoto = (ImageView)itemView.findViewById(R.id.suggestion_photo);
+            suggestionButton = (ImageButton) itemView.findViewById(R.id.suggestion_button);
         }
 
 

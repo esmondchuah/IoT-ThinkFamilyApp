@@ -2,7 +2,6 @@ package com.mycompany.thinkfamily;
 
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,13 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     ViewPager mPager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +72,7 @@ class MyPagerAdapter extends FragmentStatePagerAdapter {
         if (position == 0) {
             fragment = new SuggestionsFragment();
         }else if (position == 1) {
-            fragment = new LaunchFragment();
+            fragment = new CameraFragment();
         }else if (position == 2){
             fragment = new AnalyticsFragment();
         }
@@ -87,7 +84,6 @@ class MyPagerAdapter extends FragmentStatePagerAdapter {
         return 3;
     }
 }
-
 
 
 //    @Override

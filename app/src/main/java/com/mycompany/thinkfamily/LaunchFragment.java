@@ -38,15 +38,10 @@ public class LaunchFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), CameraActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
             }
         });
         return view;
     }
-
-//    private void configureImageButton(){
-//
-//    }
 
 }

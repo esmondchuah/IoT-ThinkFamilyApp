@@ -140,8 +140,11 @@ public class CameraActivity extends Activity implements ConnectionCallbacks,
                     Log.i(TAG, "Image successfully saved.");
                     mBitmapToSave = null;
                     // Just start the camera again for another photo.
-                    startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-                            REQUEST_CODE_CAPTURE_IMAGE);
+                    Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivityForResult(intent2, REQUEST_CODE_CAPTURE_IMAGE);
+//                    startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+//                            REQUEST_CODE_CAPTURE_IMAGE);
                 }
                 break;
         }
@@ -172,8 +175,11 @@ public class CameraActivity extends Activity implements ConnectionCallbacks,
         Log.i(TAG, "API client connected.");
         if (mBitmapToSave == null) {
             // This activity has no UI of its own. Just start the camera.
-            startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-                    REQUEST_CODE_CAPTURE_IMAGE);
+            Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivityForResult(intent1, REQUEST_CODE_CAPTURE_IMAGE);
+//            startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+//                    REQUEST_CODE_CAPTURE_IMAGE);
             return;
         }
         saveFileToDrive();
