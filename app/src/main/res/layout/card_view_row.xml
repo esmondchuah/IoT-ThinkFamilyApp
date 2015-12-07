@@ -48,13 +48,14 @@
                 android:layout_marginTop="5dp"/>
 
             <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="31dp"
+                android:layout_width="325dp"
+                android:layout_height="30dp"
                 android:gravity="center"
                 android:id="@+id/suggestion_button"
                 android:background="@drawable/addtocalendar"
                 android:layout_below="@+id/description2"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 

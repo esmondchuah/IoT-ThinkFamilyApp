@@ -33,6 +33,7 @@ public class SuggestionsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Suggestions");
     }
 
     @Override
@@ -138,8 +139,5 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.SuggestionViewHolder>{
             suggestionPhoto = (ImageView)itemView.findViewById(R.id.suggestion_photo);
             suggestionButton = (ImageButton) itemView.findViewById(R.id.suggestion_button);
         }
-
-
     }
-
 }

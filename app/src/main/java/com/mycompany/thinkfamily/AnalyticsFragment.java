@@ -27,7 +27,7 @@ public class AnalyticsFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.i(TAG, "Analytics fragment created");
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("How's Mom Doing?");
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("How's Mom Doing?");
         return inflater.inflate(R.layout.fragment_analytics, container, false);
     }
 
