@@ -2,6 +2,13 @@
     <string name="app_name">ThinkFamily</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dintaifung_description">What better way to catch up with what\'s happening in your loved ones\' lives than to have it over scrumptious authentic Chinese cuisine. </string>
+    <string name="mahjong_description">Time for a classic game of Mahjong with a tinge of competitive spirit. </string>
+    <string name="chinatown_description">Shopping - a retail therapy taken when life demands a happiness boost. </string>
+    <string name="teachat_description">Have a delightful conversation with your loved ones over tea, and enjoy each others\' company. </string>
+    <string name="taichi_description">Why practice yoga when you can learn the ancient art of Tai chi from your Mom? </string>
+    <string name="cooking_description">Craving for some home-cooked meal filled with love? How about preparing it yourself and unleash the chef inside you.</string>
+
+
+
 </resources>

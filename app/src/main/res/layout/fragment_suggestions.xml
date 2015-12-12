@@ -3,12 +3,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:orientation="vertical"
     tools:context="com.mycompany.thinkfamily.SuggestionsFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scrollbars="vertical"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbars="vertical"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/suggestions_header"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/menu_icon"/>
+            <TextView
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:text="Suggestions"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:gravity="start"
+                android:paddingStart="25dp"
+                android:padding="12dp" />
+
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/abc_ic_search_api_mtrl_alpha"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

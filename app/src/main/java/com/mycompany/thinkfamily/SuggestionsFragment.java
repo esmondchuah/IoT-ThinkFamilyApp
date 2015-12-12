@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.internal.app.ToolbarActionBar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,9 +15,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,32 +49,31 @@ public class SuggestionsFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
         initializeData();
-        RVAdapter adapter = new RVAdapter(suggestion);
+        final RVAdapter adapter = new RVAdapter(suggestion);
         rv.setAdapter(adapter);
+
         return view;
     }
 
     private void initializeData(){
         suggestion = new ArrayList<>();
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Dinner with Mom", "Din Tai Fung", R.drawable.dintaifung));
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Mahjong Session", "Home", R.drawable.mahjong));
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Shopping with Mom", "Chinatown", R.drawable.chinatown));
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Yam Cha", "Home", R.drawable.teachat));
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Tai Chi Session", "Insert location", R.drawable.taichi));
-        suggestion.add(new Suggestion("[Enter description here]", "[Enter description here]", "Cooking with Mom", "Home", R.drawable.cooking));
+        suggestion.add(new Suggestion(getResources().getString(R.string.dintaifung_description), "Dinner with Mom", "Din Tai Fung", R.drawable.dintaifung));
+        suggestion.add(new Suggestion(getResources().getString(R.string.mahjong_description), "Mahjong Session", "Home", R.drawable.mahjong));
+        suggestion.add(new Suggestion(getResources().getString(R.string.chinatown_description), "Shopping with Mom", "Chinatown", R.drawable.chinatown));
+        suggestion.add(new Suggestion(getResources().getString(R.string.teachat_description), "Yam Cha", "Home", R.drawable.teachat));
+        suggestion.add(new Suggestion(getResources().getString(R.string.taichi_description), "Tai Chi Session", "Insert location", R.drawable.taichi));
+        suggestion.add(new Suggestion(getResources().getString(R.string.cooking_description), "Cooking with Mom", "Home", R.drawable.cooking));
     }
 }
 
 class Suggestion {
-    String description1;
-    String description2;
+    String description;
     String calendarTitle;
     String location;
     int photoId;
 
-    Suggestion(String description1, String description2, String calendarTitle, String location, int photoId) {
-        this.description1 = description1;
-        this.description2 = description2;
+    Suggestion(String description, String calendarTitle, String location, int photoId) {
+        this.description = description;
         this.calendarTitle = calendarTitle;
         this.location = location;
         this.photoId = photoId;
@@ -101,8 +104,7 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.SuggestionViewHolder>{
     @Override
     public void onBindViewHolder(SuggestionViewHolder suggestionViewHolder, int i) {
         final int buffer = i;
-        suggestionViewHolder.description1.setText(suggestion.get(i).description1);
-        suggestionViewHolder.description2.setText(suggestion.get(i).description2);
+        suggestionViewHolder.description.setText(suggestion.get(i).description);
         suggestionViewHolder.suggestionPhoto.setImageResource(suggestion.get(i).photoId);
         suggestionViewHolder.suggestionButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -126,18 +128,26 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.SuggestionViewHolder>{
 
     static class SuggestionViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
-        TextView description1;
-        TextView description2;
+        TextView description;
         ImageView suggestionPhoto;
         ImageButton suggestionButton;
+        LinearLayout mLinearLayout;
 
         SuggestionViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.card_view);
-            description1 = (TextView)itemView.findViewById(R.id.description1);
-            description2 = (TextView)itemView.findViewById(R.id.description2);
+            description = (TextView)itemView.findViewById(R.id.description);
             suggestionPhoto = (ImageView)itemView.findViewById(R.id.suggestion_photo);
             suggestionButton = (ImageButton) itemView.findViewById(R.id.suggestion_button);
+            mLinearLayout = (LinearLayout) itemView.findViewById(R.id.expandable);
+
+            suggestionPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+                    mLinearLayout.setLayoutParams(lp);
+                }
+            });
         }
     }
 }

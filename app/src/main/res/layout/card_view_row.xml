@@ -17,49 +17,79 @@
         card_view:contentPaddingTop="0dp"
         card_view:contentPaddingBottom="0dp"
         card_view:cardElevation="7dp"
-        android:id="@+id/card_view">
+        android:id="@+id/card_view"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:paddingTop="0dp">
 
-            <ImageView
+            <LinearLayout
+                android:id="@+id/header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/suggestion_photo"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="0dp" />
+                android:layout_height="175.5dp"
+                android:orientation="vertical"
+                android:paddingTop="0dp"
+                android:clickable="true">
 
-            <TextView
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/suggestion_photo"
+                    android:paddingTop="0dp"
+                    android:layout_marginTop="0dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/expandable"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:id="@+id/description1"
-                android:layout_below="@+id/suggestion_photo"
-                android:layout_marginTop="0dp" />
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:paddingTop="0dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="5dp">
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="fill_horizontal"
+                    android:id="@+id/description"
+                    android:layout_marginTop="0dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/footer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:id="@+id/description2"
-                android:layout_below="@+id/description1"
-                android:layout_marginTop="5dp"/>
+                android:layout_height="35dp"
+                android:orientation="vertical"
+                android:paddingTop="0dp">
 
-            <ImageButton
-                android:layout_width="325dp"
-                android:layout_height="30dp"
-                android:gravity="center"
-                android:id="@+id/suggestion_button"
-                android:background="@drawable/addtocalendar"
-                android:layout_below="@+id/description2"
-                android:layout_marginTop="5dp"
-                android:layout_centerHorizontal="true"/>
+                <ImageButton
+                    android:layout_width="325dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/suggestion_button"
+                    android:background="@drawable/addtocalendar"
+                    android:layout_marginTop="0dp" />
 
-        </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
 
 </LinearLayout>
+
+<!--<TextView-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:gravity="center"-->
+<!--android:id="@+id/description2"-->
+<!--android:layout_marginTop="5dp"-->
+<!--android:layout_marginBottom="5dp"/>-->

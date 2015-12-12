@@ -1,6 +1,7 @@
 package com.mycompany.thinkfamily;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 
 public class AnalyticsFragment extends android.support.v4.app.Fragment {
@@ -28,8 +30,8 @@ public class AnalyticsFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         Log.i(TAG, "Analytics fragment created");
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("How's Mom Doing?");
-        return inflater.inflate(R.layout.fragment_analytics, container, false);
+        View view = inflater.inflate(R.layout.fragment_analytics, container, false);
+        return view;
     }
-
 
 }
