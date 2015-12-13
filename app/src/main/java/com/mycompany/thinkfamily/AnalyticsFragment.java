@@ -1,5 +1,6 @@
 package com.mycompany.thinkfamily;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -466,6 +467,7 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
         mCalorieText.setText(str);
         mWalksText.setText(Integer.toString(MainActivity.stepToday));
     }
+
 //
 //    public void addMessage(ActivityReport object) {
 //        if(object != null && mTimelineListAdapter != null) {
@@ -531,6 +533,7 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
                     }
                     drawStatistics();    // Refresh graph periodically
                     showActivityReport();
+
                 }
             });
         }

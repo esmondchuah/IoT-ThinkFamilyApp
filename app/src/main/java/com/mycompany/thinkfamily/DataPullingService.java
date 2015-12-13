@@ -23,6 +23,7 @@ public class DataPullingService extends IntentService {
     private static final String THINGSPEAK_CALORIE = "field1";
     private static final String THINGSPEAK_CALORIE_TODAY = "field2";
     private static final String THINGSPEAK_STEP_TODAY = "field3";
+    private static final String THINGSPEAK_FALLING = "field4";
 
     private static final String THINGSPEAK_TIME = "created_at";
     private static final String THINGSPEAK_UPDATE_URL = "https://api.thingspeak.com/update?";
@@ -80,6 +81,7 @@ public class DataPullingService extends IntentService {
             MainActivity.calorieCount = channel.getDouble(THINGSPEAK_CALORIE);
             MainActivity.calorieToday = channel.getDouble(THINGSPEAK_CALORIE_TODAY);
             MainActivity.stepToday = channel.getInt(THINGSPEAK_STEP_TODAY);
+            MainActivity.falling = channel.getInt(THINGSPEAK_FALLING);
             String time = channel.getString(THINGSPEAK_TIME);
 
             Log.d("Time stamp", time + "/" + timeStamp);
