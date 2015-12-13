@@ -60,7 +60,7 @@ import com.google.android.gms.drive.MetadataChangeSet;
 
 
 public class MainActivity extends AppCompatActivity implements ConnectionCallbacks,
-        OnConnectionFailedListener{
+        OnConnectionFailedListener, AnalyticsFragment.OnHeadlineSelectedListener{
 
     Toolbar toolbar;
     ViewPager mPager;
@@ -363,19 +363,22 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
     public void skypeOnClick (View v){
         Intent sky = new Intent("android.intent.action.VIEW");
-        sky.setData(Uri.parse("skype:" + "adyasadanand" + "?call&video=true"));
+        sky.setData(Uri.parse("skype:" + "nta312" + "?call&video=true"));
         startActivity(sky);
     }
 
-//    public void sendNotification(){
-//        // Sets an ID for the notification
-//        int mNotificationId = 001;
-//        // Gets an instance of the NotificationManager service
-//        NotificationManager mNotifyMgr =
-//                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        // Builds the notification and issues it.
-//        mNotifyMgr.notify(mNotificationId, mBuilder.build());
-//    }
+    public void sendNotification(){
+        if (falling == 1){
+            // Sets an ID for the notification
+            int mNotificationId = 001;
+            // Gets an instance of the NotificationManager service
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            // Builds the notification and issues it.
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+            falling = 0;
+        }
+    }
 }
 
 

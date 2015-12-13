@@ -1,5 +1,6 @@
 package com.mycompany.thinkfamily;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +28,7 @@ import java.util.TimerTask;
 
 public class AnalyticsFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "TimelineFragment";
-
+    OnHeadlineSelectedListener mCallback;
     // Constants
     private static final long DRAWING_GRAPH_INTERVAL = 5*1000;
     private static final long DRAWING_GRAPH_DELAY = 3*1000;
@@ -88,6 +89,11 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
         mThisMonth = cal.get(Calendar.MONTH);
         mThisDay = cal.get(Calendar.DAY_OF_MONTH);
         mThisHour = cal.get(Calendar.HOUR_OF_DAY);
+    }
+
+    // Container Activity must implement this interface
+    public interface OnHeadlineSelectedListener {
+        public void sendNotification();
     }
 
 /*
@@ -171,6 +177,22 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
                 break;
         }
     }*/
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnHeadlineSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
+
 
     @Override
     public void onResume() {
@@ -533,6 +555,7 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
                     }
                     drawStatistics();    // Refresh graph periodically
                     showActivityReport();
+                    mCallback.sendNotification();
 
                 }
             });

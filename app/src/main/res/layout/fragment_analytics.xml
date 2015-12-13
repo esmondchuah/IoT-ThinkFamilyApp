@@ -169,7 +169,7 @@
         <view class="com.mycompany.thinkfamily.RenderingStatistics"
             android:id="@+id/render_statistics"
             android:layout_width="match_parent"
-            android:layout_height="250dip"
+            android:layout_height="300dip"
             android:background="#ffffff"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp">
