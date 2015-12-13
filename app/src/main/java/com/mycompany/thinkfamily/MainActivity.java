@@ -101,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         Intent serviceIntent = new Intent(this, DataPullingService.class);
         startService(serviceIntent);
 
+        Intent notiServiceIntent = new Intent(this, NotificationService.class);
+        startService(notiServiceIntent);
+
         mBuilder = new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.thinkfamily_icon)
                         .setContentTitle("ThinkFamily")
