@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
-                android:text="Suggestions"
+                android:text="@string/title_suggestions"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:gravity="start"

@@ -8,7 +8,17 @@
     <string name="teachat_description">Have a delightful conversation with your loved ones over tea, and enjoy each others\' company. </string>
     <string name="taichi_description">Why practice yoga when you can learn the ancient art of Tai chi from your Mom? </string>
     <string name="cooking_description">Craving for some home-cooked meal filled with love? How about preparing it yourself and unleash the chef inside you.</string>
+    <string name="title_suggestions">Suggestions</string>
 
+    <string name="title_calorie">Calories burnt today</string>
+    <string name="title_walks">Steps taken today</string>
+    <string name="title_statistics">Activity Report</string>
+    <string name="title_month">Month</string>
+    <string name="title_day">Day</string>
+    <string name="title_hour">Hour</string>
+    <string name="title_analytics">Analytics</string>
+    <string name="title_visits">Days since last visit:  </string>
+    <string name="check_in">Check in</string>
 
 
 </resources>

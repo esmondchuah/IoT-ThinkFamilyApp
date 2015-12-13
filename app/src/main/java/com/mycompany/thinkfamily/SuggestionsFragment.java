@@ -37,7 +37,6 @@ public class SuggestionsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Suggestions");
     }
 
     @Override
