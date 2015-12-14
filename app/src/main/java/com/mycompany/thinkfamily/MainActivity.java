@@ -60,7 +60,7 @@ import com.google.android.gms.drive.MetadataChangeSet;
 
 
 public class MainActivity extends AppCompatActivity implements ConnectionCallbacks,
-        OnConnectionFailedListener, AnalyticsFragment.OnHeadlineSelectedListener{
+        OnConnectionFailedListener{
 
     Toolbar toolbar;
     ViewPager mPager;
@@ -104,11 +104,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         Intent notiServiceIntent = new Intent(this, NotificationService.class);
         startService(notiServiceIntent);
 
-        mBuilder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.thinkfamily_icon)
-                        .setContentTitle("ThinkFamily")
-                        .setContentText("ALERT!!! Your mom fell!!!");
-
 
         // check for the presence of the photo frame in close proximity through bluetooth
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
@@ -151,6 +146,11 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 // ---------------------------------- Camera Fragment methods --------------------------------------
 // -------------------------------------------------------------------------------------------------
 
+/**
+ * This fragment takes a photo and saves it in Google Drive.
+ * The user is prompted with a pre-made dialog which allows
+ * them to choose the file location.
+ */
     public void cameraOnClick (View v) {
         isStarted = true;
 
@@ -336,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 Toast.makeText(getApplicationContext(), "Device found " + device.getName(), Toast.LENGTH_SHORT).show(); //Device found
-                if (device.getName().equals("SM-T325")) {
+                if (device.getName().equals("HC-05")) {
                     Calendar c = Calendar.getInstance();
                     int daysSinceLastVisit = c.get(Calendar.DAY_OF_YEAR);
 
@@ -370,18 +370,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         startActivity(sky);
     }
 
-    public void sendNotification(){
-        if (falling == 1){
-            // Sets an ID for the notification
-            int mNotificationId = 001;
-            // Gets an instance of the NotificationManager service
-            NotificationManager mNotifyMgr =
-                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            // Builds the notification and issues it.
-            mNotifyMgr.notify(mNotificationId, mBuilder.build());
-            falling = 0;
-        }
-    }
 }
 
 

@@ -28,7 +28,7 @@ import java.util.TimerTask;
 
 public class AnalyticsFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "TimelineFragment";
-    OnHeadlineSelectedListener mCallback;
+
     // Constants
     private static final long DRAWING_GRAPH_INTERVAL = 5*1000;
     private static final long DRAWING_GRAPH_DELAY = 3*1000;
@@ -91,18 +91,6 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
         mThisHour = cal.get(Calendar.HOUR_OF_DAY);
     }
 
-    // Container Activity must implement this interface
-    public interface OnHeadlineSelectedListener {
-        public void sendNotification();
-    }
-
-/*
-    public ReportFragment(Context c, IFragmentListener l, Handler h) {
-        mContext = c;
-        mFragmentListener = l;
-        mHandler = h;
-    }
-*/
 
 
     /*****************************************************
@@ -155,43 +143,9 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
         mLastVisitsText.setText(text);
 
 
-        // TODO: If you need to show activity data as list, use below code
-		/*
-		mTimelineList = (ListView) rootView.findViewById(R.id.list_timeline);
-		if(mTimelineListAdapter == null)
-			mTimelineListAdapter = new TimelineAdapter(mContext, R.layout.list_item_timeline, null);
-		mTimelineListAdapter.setAdapterParams(this);
-		mTimelineList.setAdapter(mTimelineListAdapter);
-		*/
-
         return rootView;
     }
 
-/*    @Override
-    public void OnAdapterCallback(int msgType, int arg0, int arg1, String arg2, String arg3, Object arg4) {
-        switch(msgType) {
-            case IAdapterListener.CALLBACK_xxx:
-                // TODO:
-                //if(arg4 != null)
-                //	mFragmentListener.OnFragmentCallback(IFragmentListener.CALLBACK_REQUEST_ADD_FILTER, 0, 0, null, null, arg4);
-                break;
-        }
-    }*/
-
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (OnHeadlineSelectedListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-    }
 
 
     @Override
@@ -490,49 +444,6 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
         mWalksText.setText(Integer.toString(MainActivity.stepToday));
     }
 
-//
-//    public void addMessage(ActivityReport object) {
-//        if(object != null && mTimelineListAdapter != null) {
-//            mTimelineListAdapter.addObject(object);
-//            mTimelineListAdapter.notifyDataSetChanged();
-//        }
-//    }
-//
-//    public void addMessageOnTop(ActivityReport object) {
-//        if(object != null && mTimelineListAdapter != null) {
-//            mTimelineListAdapter.addObjectOnTop(object);
-//            mTimelineListAdapter.notifyDataSetChanged();
-//        }
-//    }
-//
-//    public void addMessageAll(ArrayList<ActivityReport> objList) {
-//        if(objList != null && mTimelineListAdapter != null) {
-//            mTimelineListAdapter.addObjectAll(objList);
-//            mTimelineListAdapter.notifyDataSetChanged();
-//        }
-//    }
-//
-//    public void deleteMessage(int id) {
-//        if(mTimelineListAdapter != null) {
-//            mTimelineListAdapter.deleteObject(id);
-//            mTimelineListAdapter.notifyDataSetChanged();
-//        }
-//    }
-//
-//    public void deleteMessageByType(int type) {
-//        if(mTimelineListAdapter != null) {
-//            mTimelineListAdapter.deleteObjectByType(type);
-//            mTimelineListAdapter.notifyDataSetChanged();
-//        }
-//    }
-//
-//    public void deleteMessageAll() {
-//        if(mTimelineListAdapter != null) {
-//            mTimelineListAdapter.deleteObjectAll();
-//            mTimelineListAdapter.notifyDataSetChanged();
-//        }
-//    }
-
 
 
 
@@ -555,7 +466,6 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
                     }
                     drawStatistics();    // Refresh graph periodically
                     showActivityReport();
-                    mCallback.sendNotification();
 
                 }
             });

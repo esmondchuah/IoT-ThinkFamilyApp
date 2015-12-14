@@ -41,8 +41,6 @@
             android:name=".DataPullingService"
             android:exported="false"></service>
 
-        <activity android:name=".CameraActivity" />
-
         <service
             android:name=".NotificationService"
             android:exported="false"></service>
