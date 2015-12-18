@@ -1,17 +1,15 @@
 package com.mycompany.thinkfamily;
 
-
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
-
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 
 public class DataPullingService extends IntentService {
     private static final String TAG = "UsingThingspeakAPI";

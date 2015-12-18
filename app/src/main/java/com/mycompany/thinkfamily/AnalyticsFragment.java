@@ -1,12 +1,8 @@
 package com.mycompany.thinkfamily;
 
-import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Timer;
@@ -43,7 +37,7 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
 
     private static int mThisYear = -1;
 
-    private static int mThisMonth = -1;	// (in the range [0,11])
+    private static int mThisMonth = -1;	    // (in the range [0,11])
     private static int[] mMonthArray = new int[12];
 
     private static int mThisDay = -1;		// (in the range [0,30])
@@ -59,7 +53,6 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
     // System
     private Context mContext = null;
     private DBHelper mDB;
-
 
 
     // Contents
@@ -83,6 +76,9 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
     private Timer mReloadDataTimer = null;
 
 
+    /**
+     * Public constructor
+     */
     public AnalyticsFragment() {
         Calendar cal = Calendar.getInstance();
         mThisYear = cal.get(Calendar.YEAR);
@@ -111,8 +107,8 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
 
         View rootView = inflater.inflate(R.layout.fragment_analytics, container, false);
 
+        // initialize the view objects in the analytics fragment
         mRenderStatistics = (RenderingStatistics)rootView.findViewById(R.id.render_statistics);
-
         mStatisticsText = (TextView) rootView.findViewById(R.id.text_title_statistics);
         mCalorieText = (TextView) rootView.findViewById(R.id.text_content_calorie);
         mCalorieText.setText(String.format("%,.0f", MainActivity.calorieToday));
@@ -126,7 +122,8 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
 
         getCurrentReportsFromDB();
 
-        // refresh DaysSinceLastVisit
+
+        // refresh DaysSinceLastVisit using the current date
         SharedPreferences preferences = getActivity().getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
         int daysPast = preferences.getInt("daysSinceLastVisit", 0);
         Calendar c = Calendar.getInstance();
@@ -142,10 +139,8 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
         mLastVisitsText = (TextView) rootView.findViewById(R.id.days_since_last_visit);
         mLastVisitsText.setText(text);
 
-
         return rootView;
     }
-
 
 
     @Override
@@ -277,7 +272,9 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-
+    /**
+     * Refresh data pulled from cloud.
+     */
     protected void addNewData() {
         boolean isTimeChanged = false;
         double calories = MainActivity.calorieCount;

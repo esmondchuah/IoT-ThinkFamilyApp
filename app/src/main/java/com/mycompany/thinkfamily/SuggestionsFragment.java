@@ -1,31 +1,21 @@
 package com.mycompany.thinkfamily;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.internal.app.ToolbarActionBar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -54,6 +44,7 @@ public class SuggestionsFragment extends Fragment {
         return view;
     }
 
+    // initialize view objects in CardView
     private void initializeData(){
         suggestion = new ArrayList<>();
         suggestion.add(new Suggestion(getResources().getString(R.string.dintaifung_description), "Dinner with Mom", "Din Tai Fung", R.drawable.dintaifung));
@@ -80,6 +71,9 @@ class Suggestion {
 
 }
 
+/**
+ * Latest MaterialDesign RecyclerView to display all the cards initialized.
+ */
 class RVAdapter extends RecyclerView.Adapter<RVAdapter.SuggestionViewHolder>{
 
     List<Suggestion> suggestion;
@@ -111,10 +105,8 @@ class RVAdapter extends RecyclerView.Adapter<RVAdapter.SuggestionViewHolder>{
                 Intent intent = new Intent(Intent.ACTION_INSERT)
                         .setData(CalendarContract.Events.CONTENT_URI)
                         .putExtra(CalendarContract.Events.TITLE, suggestion.get(buffer).calendarTitle)
-//                        .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
                         .putExtra(CalendarContract.Events.EVENT_LOCATION, suggestion.get(buffer).location)
                         .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
-//                        .putExtra(Intent.EXTRA_EMAIL, "rowan@example.com,trevor@example.com");
                 v.getContext().startActivity(intent);
             }
         });

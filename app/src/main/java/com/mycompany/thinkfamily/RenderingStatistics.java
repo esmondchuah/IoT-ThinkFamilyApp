@@ -80,14 +80,9 @@ public class RenderingStatistics extends View {
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         setClickable(true);
     }
-
-
-    /*****************************************************
-     *		Private methods
-     ******************************************************/
-
 
 
     /*****************************************************
@@ -221,11 +216,4 @@ public class RenderingStatistics extends View {
             startPointX += columnSize;
         }
     }
-
-
-    /*****************************************************
-     *		Sub classes, Handler, Listener
-     ******************************************************/
-
-
 }

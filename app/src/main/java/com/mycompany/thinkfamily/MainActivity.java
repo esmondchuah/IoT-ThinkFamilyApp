@@ -1,50 +1,36 @@
 package com.mycompany.thinkfamily;
 
-import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.internal.app.ToolbarActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import java.util.Calendar;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.content.IntentSender;
 import android.content.IntentSender.SendIntentException;
-import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -98,12 +84,13 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         mPager.setCurrentItem(1);
 
+        // service for pulling data in the background
         Intent serviceIntent = new Intent(this, DataPullingService.class);
         startService(serviceIntent);
 
+        // service for pushing a notification in the background
         Intent notiServiceIntent = new Intent(this, NotificationService.class);
         startService(notiServiceIntent);
-
 
         // check for the presence of the photo frame in close proximity through bluetooth
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
@@ -146,11 +133,11 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 // ---------------------------------- Camera Fragment methods --------------------------------------
 // -------------------------------------------------------------------------------------------------
 
-/**
- * This fragment takes a photo and saves it in Google Drive.
- * The user is prompted with a pre-made dialog which allows
- * them to choose the file location.
- */
+    /**
+     * This fragment takes a photo and saves it in Google Drive.
+     * The user is prompted with a pre-made dialog which allows
+     * them to choose the file location.
+     */
     public void cameraOnClick (View v) {
         isStarted = true;
 
@@ -158,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 
-        //start the image capture intent
+        // start the image capture intent
         startActivityForResult(intent, REQUEST_CODE_CAPTURE_IMAGE);
 
     }
@@ -308,13 +295,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     @Override
     public void onConnected(Bundle connectionHint) {
         Log.i(TAG, "API client connected.");
-//        if (mBitmapToSave == null) {
-//            // This activity has no UI of its own. Just start the camera.
-//            startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-//                    REQUEST_CODE_CAPTURE_IMAGE);
-//            return;
-//        }
-//        saveFileToDrive();
     }
 
     @Override
@@ -329,6 +309,11 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 // --------------------------------- Analytics Fragment methods ------------------------------------
 // -------------------------------------------------------------------------------------------------
 
+
+    /**
+     * Scan for the presence of the ActivityBand in close proximity using Bluetooth
+     * and save the date of visit once successfully detected the band.
+     */
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -364,6 +349,10 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         }
     };
 
+
+    /**
+     * initialize Skype intent to call the SmartPhotoFrame
+     */
     public void skypeOnClick (View v){
         Intent sky = new Intent("android.intent.action.VIEW");
         sky.setData(Uri.parse("skype:" + "nta312" + "?call&video=true"));
@@ -378,6 +367,9 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 // -------------------------------------- Fragment Manager -----------------------------------------
 // -------------------------------------------------------------------------------------------------
 
+/**
+ * A pager adapter to scroll through the different activity fragments
+ */
 class MyPagerAdapter extends FragmentStatePagerAdapter {
 
     public MyPagerAdapter(FragmentManager fm){

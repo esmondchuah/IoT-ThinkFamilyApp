@@ -1,6 +1,5 @@
 package com.mycompany.thinkfamily;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

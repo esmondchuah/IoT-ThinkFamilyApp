@@ -10,6 +10,9 @@ import android.os.Bundle;
 
 public class CameraFragment extends Fragment {
 
+    /**
+     * public constructor
+     */
     public CameraFragment() {
         super();
     }
