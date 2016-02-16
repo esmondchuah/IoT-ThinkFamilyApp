@@ -24,3 +24,7 @@ Regular notifications will pop up on the family member's mobile phones, remindin
 We provide the users with suggestions on various activities they could initiate and spend time with the elderly. The list of suggestions is presented an elegant card view, with the incorporation of the latest Material Design implementation by Android. Clicking on the "Add to calendar" button on the respective cards will launch the user's calendar app to prompt the user the save the event to their personal calendar. 
 
 Future improvements to this function may include a platform for businesses to populate this fragment with their own events catered for bonding between the elderly and their loved ones. It would be a great medium for businesses to advertise as well as for the users of the app to get fresh ideas on how to engage the older generation.
+
+
+#### BUILT WITH
+Android SDK, Google Services, ThinkSpeak
